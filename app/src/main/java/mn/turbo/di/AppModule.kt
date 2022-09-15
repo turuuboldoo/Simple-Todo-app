@@ -27,7 +27,9 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideMyRepository(myApi: TodoApi): TodoRepository {
-        return DefaultTodoRepository(myApi)
+    fun provideMyRepository(
+        todoApi: TodoApi
+    ): TodoRepository {
+        return DefaultTodoRepository(todoApi)
     }
 }
