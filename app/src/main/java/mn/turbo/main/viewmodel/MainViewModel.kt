@@ -19,20 +19,10 @@ class MainViewModel @Inject constructor(
         getTodoStateFlow()
     }
 
-    private val _todo = MutableStateFlow<Resource<List<Todo>>?>(Resource.Loading())
+    private val _todo = MutableStateFlow<Resource<List<Todo>>>(Resource.Loading())
     val todo = _todo.asStateFlow()
 
-    val getTodo = flow {
-        emit(Resource.Loading())
-        val response = repository.getTodoList()
-        if (response.isSuccessful) {
-            emit(Resource.Success(response.body()))
-        } else {
-            emit(Resource.Error("Somethings wrong?"))
-        }
-    }
-
-    private fun getTodoStateFlow() {
+    private fun getTodoStateFlow() =
         viewModelScope.launch {
             val response = repository.getTodoList()
             if (response.isSuccessful) {
@@ -41,5 +31,4 @@ class MainViewModel @Inject constructor(
                 _todo.value = Resource.Error("Somethings wrong?")
             }
         }
-    }
 }

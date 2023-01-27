@@ -12,13 +12,16 @@ class TodoAdapter : ListAdapter<Todo, TodoViewHolder>(TodoDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         return TodoViewHolder(
-            ItemTodoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemTodoBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        val item = getItem(position)
-        if (item != null) {
+        getItem(position)?.let { item ->
             holder.binding.apply {
                 mTextView.text = item.title
                 mCheckBox.isChecked = !item.completed

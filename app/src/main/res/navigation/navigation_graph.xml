@@ -10,4 +10,5 @@
         android:name="mn.turbo.main.fragment.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
+
 </navigation>
