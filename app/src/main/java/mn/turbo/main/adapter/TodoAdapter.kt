@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import mn.turbo.data.remote.dto.Todo
 import mn.turbo.databinding.ItemTodoBinding
 
-class TodoAdapter : ListAdapter<Todo, TodoViewHolder>(TodoDiffUtil()) {
+class TodoAdapter(
+    private val onCheck: (Todo) -> Unit
+) : ListAdapter<Todo, TodoViewHolder>(TodoDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         return TodoViewHolder(
@@ -24,7 +26,11 @@ class TodoAdapter : ListAdapter<Todo, TodoViewHolder>(TodoDiffUtil()) {
         getItem(position)?.let { item ->
             holder.binding.apply {
                 mTextView.text = item.title
-                mCheckBox.isChecked = !item.completed
+                mCheckBox.isChecked = item.completed
+
+                mCheckBox.setOnCheckedChangeListener { _, isChecked ->
+                    onCheck(item.copy(completed = isChecked))
+                }
             }
         }
     }

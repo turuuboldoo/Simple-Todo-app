@@ -35,4 +35,8 @@ class DefaultTodoRepository(
             }
         }
     }
+
+    override suspend fun update(todo: Todo) {
+        dao.updateTodo(todo.toTodoEntity())
+    }
 }

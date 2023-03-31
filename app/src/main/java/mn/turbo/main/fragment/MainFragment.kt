@@ -21,8 +21,6 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private val mAdapter = TodoAdapter()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,6 +36,10 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val mAdapter = TodoAdapter {
+            viewModel.update(it)
+        }
+
         binding.mRecyclerView.adapter = mAdapter
 
         collectLatestLifecycleFlow(viewModel.todo) { resources ->

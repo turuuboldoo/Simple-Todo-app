@@ -32,4 +32,9 @@ class MainViewModel @Inject constructor(
                 _todo.value = Resource.Error("Somethings wrong?")
             }
         }
+
+    fun update(todo: Todo) =
+        viewModelScope.launch {
+            repository.update(todo)
+        }
 }
