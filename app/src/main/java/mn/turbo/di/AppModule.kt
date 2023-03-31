@@ -1,9 +1,14 @@
 package mn.turbo.di
 
+import android.app.Application
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import mn.turbo.common.Const
+import mn.turbo.data.local.dao.TodoDao
+import mn.turbo.data.local.database.TodoDatabase
 import mn.turbo.data.remote.TodoApi
 import mn.turbo.data.repository.DefaultTodoRepository
 import mn.turbo.data.repository.TodoRepository
@@ -31,5 +36,25 @@ object AppModule {
         todoApi: TodoApi
     ): TodoRepository {
         return DefaultTodoRepository(todoApi)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDatabase(
+        application: Application
+    ): TodoDatabase {
+        return Room.databaseBuilder(
+            application.applicationContext,
+            TodoDatabase::class.java,
+            Const.DATABASE_NAME
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTodoDao(
+        todoDatabase: TodoDatabase
+    ): TodoDao {
+        return todoDatabase.todoDao
     }
 }
