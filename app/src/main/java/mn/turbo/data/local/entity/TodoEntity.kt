@@ -1,10 +1,11 @@
-package mn.turbo.data.local
+package mn.turbo.data.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import mn.turbo.data.remote.dto.Todo
 
-@Entity
+@Entity("todo")
 data class TodoEntity(
     @ColumnInfo(name = "title")
     var title: String,
@@ -13,4 +14,6 @@ data class TodoEntity(
     @PrimaryKey
     @ColumnInfo(name = "id")
     var id: Int,
-)
+) {
+    fun toTodo() = Todo(id, title, completed)
+}

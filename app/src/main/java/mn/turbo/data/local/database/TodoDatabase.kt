@@ -2,7 +2,7 @@ package mn.turbo.data.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import mn.turbo.data.local.TodoEntity
+import mn.turbo.data.local.entity.TodoEntity
 import mn.turbo.data.local.dao.TodoDao
 
 @Database(
