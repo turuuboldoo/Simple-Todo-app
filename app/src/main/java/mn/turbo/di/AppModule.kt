@@ -24,7 +24,7 @@ object AppModule {
     @Singleton
     fun provideApi(): TodoApi {
         return Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com")
+            .baseUrl(Const.API_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(TodoApi::class.java)
