@@ -46,14 +46,14 @@ class MainFragment : Fragment() {
             when (resources) {
                 is Resource.Success -> {
                     binding.mProgressBar.visibility = View.GONE
-                    binding.mRecyclerView.visibility = View.VISIBLE
                     mAdapter.submitList(resources.data)
                 }
+
                 is Resource.Loading -> {
-                    binding.mRecyclerView.visibility = View.GONE
+                    binding.mProgressBar.visibility = View.VISIBLE
                 }
+
                 is Resource.Error -> {
-                    binding.mRecyclerView.visibility = View.GONE
                     binding.mProgressBar.visibility = View.GONE
                 }
             }
